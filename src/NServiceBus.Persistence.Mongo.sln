@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.SagaPersisters.Mongo", "src\NServiceBus.SagaPersisters.Mongo\NServiceBus.SagaPersisters.Mongo.csproj", "{D15F34AC-3366-4216-B40B-CCD09016DBF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.SagaPersisters.Mongo", "NServiceBus.SagaPersisters.Mongo\NServiceBus.SagaPersisters.Mongo.csproj", "{D15F34AC-3366-4216-B40B-CCD09016DBF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Persistence.Mongo", "src\NServiceBus.Persistence.Mongo\NServiceBus.Persistence.Mongo.csproj", "{F5CC5BEE-91AF-45AD-960E-46F14F253267}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Persistence.Mongo", "NServiceBus.Persistence.Mongo\NServiceBus.Persistence.Mongo.csproj", "{F5CC5BEE-91AF-45AD-960E-46F14F253267}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Persistence.Mongo.Tests", "tests\NServiceBus.Persistence.Mongo.Tests\NServiceBus.Persistence.Mongo.Tests.csproj", "{506443D0-86EB-4F2C-B833-C587AEA67A07}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Persistence.Mongo.Tests", "..\tests\NServiceBus.Persistence.Mongo.Tests\NServiceBus.Persistence.Mongo.Tests.csproj", "{506443D0-86EB-4F2C-B833-C587AEA67A07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Unicast.Subscriptions.Mongo", "src\NServiceBus.Unicast.Subscriptions.Mongo\NServiceBus.Unicast.Subscriptions.Mongo.csproj", "{D4CB1C87-FC33-4A94-8563-AE5077A3D069}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Unicast.Subscriptions.Mongo", "NServiceBus.Unicast.Subscriptions.Mongo\NServiceBus.Unicast.Subscriptions.Mongo.csproj", "{D4CB1C87-FC33-4A94-8563-AE5077A3D069}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Unicast.Subscriptions.Mongo.Tests", "tests\NServiceBus.Unicast.Subscriptions.Mongo.Tests\NServiceBus.Unicast.Subscriptions.Mongo.Tests.csproj", "{A63E8F0C-FCA3-4B4B-85F6-CC3554142BD7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Unicast.Subscriptions.Mongo.Tests", "..\tests\NServiceBus.Unicast.Subscriptions.Mongo.Tests\NServiceBus.Unicast.Subscriptions.Mongo.Tests.csproj", "{A63E8F0C-FCA3-4B4B-85F6-CC3554142BD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.SagaPersisters.Mongo.Tests", "tests\NServiceBus.SagaPersisters.Mongo.Tests\NServiceBus.SagaPersisters.Mongo.Tests.csproj", "{396D2ABD-BFE9-476D-9A51-133768B02CDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.SagaPersisters.Mongo.Tests", "..\tests\NServiceBus.SagaPersisters.Mongo.Tests\NServiceBus.SagaPersisters.Mongo.Tests.csproj", "{396D2ABD-BFE9-476D-9A51-133768B02CDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
