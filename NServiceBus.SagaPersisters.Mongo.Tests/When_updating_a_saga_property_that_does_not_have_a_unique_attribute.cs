@@ -24,8 +24,7 @@ namespace NServiceBus.SagaPersisters.Mongo.Tests
         }
     }
 
-    public class When_updating_a_saga_property_on_a_existing_sagainstance_that_just_got_a_unique_attribute_set :
-        MongoFixture
+    public class When_updating_a_saga_property_on_a_existing_sagainstance_that_just_got_a_unique_attribute_set : MongoFixture
     {
         [Test]
         public void It_should_set_the_attribute_and_allow_the_update()
@@ -40,8 +39,8 @@ namespace NServiceBus.SagaPersisters.Mongo.Tests
             SaveSaga(saga1);
 
             //fake that the attribute was just added by removing the metadata
-            Sagas.FindAndModify(Query.EQ("_id", saga1.Id), SortBy.Null,
-                                Update.Set(MongoSagaPersister.MetadataPropertyName, BsonTypeMapper.MapToBsonValue(null)), false);
+            var result = Sagas.FindAndModify(Query.EQ("_id", saga1.Id), SortBy.Null,
+                                Update.Set(MongoSagaPersister.MetadataPropertyName, BsonTypeMapper.MapToBsonValue(null)), true);
 
             UpdateSaga<SagaWithUniqueProperty>(saga1.Id, s => s.UniqueString = "whatever2");
 

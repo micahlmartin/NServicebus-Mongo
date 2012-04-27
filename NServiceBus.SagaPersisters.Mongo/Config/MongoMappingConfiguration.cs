@@ -14,6 +14,7 @@ namespace NServiceBus.SagaPersisters.Mongo.Config
         {
             var conventionsProfile = new ConventionProfile();
             conventionsProfile.SetIgnoreExtraElementsConvention(new IgnoreAllExtraElementsConvention());
+            conventionsProfile.SetIdMemberConvention(new NamedIdMemberConvention("Id"));
             BsonClassMap.RegisterConventions(conventionsProfile, t => true);
         }
 

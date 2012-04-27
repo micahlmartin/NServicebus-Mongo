@@ -37,7 +37,7 @@ namespace NServiceBus.SagaPersisters.Mongo.Tests
 
         protected MongoCollection<BsonDocument> Sagas
         {
-            get { return _database.GetCollection<BsonDocument>(MongoPersistenceConstants.SubscriptionCollectionName); }
+            get { return _database.GetCollection<BsonDocument>(MongoPersistenceConstants.SagaCollectionName); }
         }
 
         protected MongoDatabase Database

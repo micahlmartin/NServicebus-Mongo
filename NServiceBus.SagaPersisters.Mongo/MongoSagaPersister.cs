@@ -52,7 +52,7 @@ namespace NServiceBus.SagaPersisters.Mongo
             string storedValue = null;
             BsonElement metadata;
             if (_sagas.FindOne(Query.EQ("_id", saga.Id)).TryGetElement(MetadataPropertyName, out metadata))
-                storedValue = metadata.Value.AsString;
+                storedValue = metadata.Value.IsString ? metadata.Value.AsString : null;
 
             if (storedValue != null)
             {
@@ -119,13 +119,17 @@ namespace NServiceBus.SagaPersisters.Mongo
 
         private void SetUniqueValueMetadata(ISagaEntity saga, KeyValuePair<string, object> uniqueProperty)
         {
-            _sagas.FindAndModify(Query.EQ("_id", saga.Id), SortBy.Null, MongoDB.Driver.Builders.Update.Set(MetadataPropertyName, uniqueProperty.Value.ToString()), true);
+            var result = _sagas.FindAndModify(Query.EQ("_id", saga.Id), SortBy.Null, MongoDB.Driver.Builders.Update.Set(MetadataPropertyName, uniqueProperty.Value.ToString()), true);
+            if(result.ModifiedDocument == null)
+                throw new InvalidOperationException();
         }
 
         private void DeleteUniqueProperty(ISagaEntity saga, KeyValuePair<string, object> uniqueProperty)
         {
             var id = SagaUniqueIdentity.FormatId(saga.GetType(), uniqueProperty);
-            _sagas.FindAndModify(Query.EQ("_id", saga.Id), SortBy.Null, MongoDB.Driver.Builders.Update.Set(MetadataPropertyName, BsonTypeMapper.MapToBsonValue(null)), false);
+            var result = _sagas.FindAndModify(Query.EQ("_id", saga.Id), SortBy.Null, MongoDB.Driver.Builders.Update.Set(MetadataPropertyName, BsonTypeMapper.MapToBsonValue(null)), true);
+            if(result.ModifiedDocument == null)
+                throw new InvalidOperationException();
         }
     }
 
