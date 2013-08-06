@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using MongoDB.Driver;
 using NServiceBus.Persistence.Mongo;
-using NServiceBus.Persistence.Mongo.Config;
 
 namespace NServiceBus
 {
@@ -19,11 +18,10 @@ namespace NServiceBus
             if (connectionStringEntry != null)
                 return MongoPersistenceWithConectionString(config, connectionStringEntry.ConnectionString, null);
 
+            var client = new MongoClient(MongoPersistenceConstants.DefaultUrl);
+            var db = client.GetServer().GetDatabase(DatabaseNamingConvention());
 
-            var server = MongoServer.Create(MongoPersistenceConstants.DefaultUrl);
-            var db = server.GetDatabase(DatabaseNamingConvention());
-
-            return MongoPersistence(config, server, db);
+            return MongoPersistence(config, client.GetServer(), db);
         }
 
         public static Configure MongoPersistence(this Configure config, string connectionStringName)
@@ -72,19 +70,19 @@ namespace NServiceBus
 
         static Configure MongoPersistenceWithConectionString(Configure config, string connectionStringValue, string database)
         {
-            var server = MongoServer.Create(connectionStringValue);
+            var client = new MongoClient(connectionStringValue);
 
             var mongoUrl = MongoUrl.Create(connectionStringValue);
             MongoDatabase db;
             
             if (!string.IsNullOrEmpty(database))
-                db = server.GetDatabase(database);
+                db = client.GetServer().GetDatabase(database);
             else if (!string.IsNullOrEmpty(mongoUrl.DatabaseName))
-                db = server.GetDatabase(mongoUrl.DatabaseName);
+                db = client.GetServer().GetDatabase(mongoUrl.DatabaseName);
             else
-                db = server.GetDatabase(DatabaseNamingConvention());
+                db = client.GetServer().GetDatabase(DatabaseNamingConvention());
 
-            return MongoPersistence(config, server, db);
+            return MongoPersistence(config, client.GetServer(), db);
         }
 
         static Configure MongoPersistence(this Configure config, MongoServer server, MongoDatabase database)
@@ -95,7 +93,6 @@ namespace NServiceBus
 
             config.Configurer.RegisterSingleton<MongoDatabase>(database);
             config.Configurer.RegisterSingleton<MongoServer>(server);
-            MongoMappingConfiguration.ConfigureMapping();
 
             return config;
         }

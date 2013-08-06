@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using MongoDB.Driver;
 using NServiceBus.Persistence.Mongo;
+using NServiceBus.Unicast.Subscriptions.MessageDrivenSubscriptions;
 using NUnit.Framework;
 
 namespace NServiceBus.Unicast.Subscriptions.Mongo.Tests
@@ -14,15 +15,15 @@ namespace NServiceBus.Unicast.Subscriptions.Mongo.Tests
     {
         private ISubscriptionStorage _storage;
         private MongoDatabase _database;
-        private MongoServer _server;
+        private MongoClient _client;
 
         [SetUp]
         public void SetupContext()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["MongoDB"].ConnectionString;
 
-            _server = MongoServer.Create(connectionString);
-            _database = _server.GetDatabase("Test_" + DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
+            _client = new MongoClient(connectionString);;
+            _database = _client.GetServer().GetDatabase("Test_" + DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
             _storage = new SubscriptionStorage(_database);
         }
 

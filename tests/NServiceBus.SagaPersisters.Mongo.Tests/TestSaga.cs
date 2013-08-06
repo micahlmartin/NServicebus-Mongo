@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using NServiceBus.Saga;
 
 namespace NServiceBus.SagaPersisters.Mongo.Tests
 {
-    public class TestSaga : ISagaEntity
+    public class TestSaga : IContainSagaData
     {
         public virtual Guid Id { get; set; }
 
@@ -34,7 +36,7 @@ namespace NServiceBus.SagaPersisters.Mongo.Tests
             return base.GetHashCode();
         }
     }
-
+    
     public class PolymorpicProperty : PolymorpicPropertyBase
     {
         public virtual int SomeInt { get; set; }
@@ -91,7 +93,8 @@ namespace NServiceBus.SagaPersisters.Mongo.Tests
         public virtual Guid Id { get; set; }
     }
 
-    public class SagaWithUniqueProperty : ISagaEntity
+    [BsonIgnoreExtraElements]
+    public class SagaWithUniqueProperty : IContainSagaData
     {
         public virtual Guid Id { get; set; }
 
@@ -105,7 +108,8 @@ namespace NServiceBus.SagaPersisters.Mongo.Tests
         public string NonUniqueString { get; set; }
     }
 
-    public class SagaWithoutUniqueProperties : ISagaEntity
+    [BsonIgnoreExtraElements]
+    public class SagaWithoutUniqueProperties : IContainSagaData
     {
         public virtual Guid Id { get; set; }
 

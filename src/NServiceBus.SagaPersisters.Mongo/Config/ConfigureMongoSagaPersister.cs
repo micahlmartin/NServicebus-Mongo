@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver;
-using NServiceBus.Persistence.Mongo.Config;
 using NServiceBus.SagaPersisters.Mongo;
 
 namespace NServiceBus
