@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.SagaPersisters.Mongo", "NServiceBus.SagaPersisters.Mongo\NServiceBus.SagaPersisters.Mongo.csproj", "{D15F34AC-3366-4216-B40B-CCD09016DBF1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Persistence.Mongo", "NServiceBus.Persistence.Mongo\NServiceBus.Persistence.Mongo.csproj", "{F5CC5BEE-91AF-45AD-960E-46F14F253267}"
@@ -12,6 +12,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Unicast.Subscriptions.Mongo.Tests", "..\tests\NServiceBus.Unicast.Subscriptions.Mongo.Tests\NServiceBus.Unicast.Subscriptions.Mongo.Tests.csproj", "{A63E8F0C-FCA3-4B4B-85F6-CC3554142BD7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.SagaPersisters.Mongo.Tests", "..\tests\NServiceBus.SagaPersisters.Mongo.Tests\NServiceBus.SagaPersisters.Mongo.Tests.csproj", "{396D2ABD-BFE9-476D-9A51-133768B02CDF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E504DCFD-F617-406C-9B24-F95AACC8B319}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

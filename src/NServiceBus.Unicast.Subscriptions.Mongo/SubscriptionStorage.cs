@@ -4,7 +4,8 @@ using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
 using NServiceBus.Persistence.Mongo;
-using log4net;
+using NServiceBus.Unicast.Subscriptions.MessageDrivenSubscriptions;
+using NServiceBus.Logging;
 
 namespace NServiceBus.Unicast.Subscriptions.Mongo
 {

@@ -25,7 +25,7 @@ namespace NServiceBus.SagaPersisters.Mongo
             _sagaIds = database.GetCollection<SagaUniqueIdentity>(MongoPersistenceConstants.SagaUniqueIdentityCollectionName);
         }
 
-        public void Save(ISagaEntity saga)
+        public void Save(IContainSagaData saga)
         {
             var uniqueValue = StoreUniqueProperty(saga);
             _sagas.Save(saga);
@@ -34,7 +34,7 @@ namespace NServiceBus.SagaPersisters.Mongo
                 SetUniqueValueMetadata(saga, uniqueValue.Value);
         }
 
-        public void Update(ISagaEntity saga)
+        public void Update(IContainSagaData saga)
         {
 
             var p = UniqueAttribute.GetUniqueProperty(saga);
@@ -72,25 +72,25 @@ namespace NServiceBus.SagaPersisters.Mongo
                 SetUniqueValueMetadata(saga, uniqueValue.Value);
         }
 
-        public T Get<T>(Guid sagaId) where T : ISagaEntity
+        public T Get<T>(Guid sagaId) where T : IContainSagaData
         {
             return _sagas.FindOneAs<T>(Query.EQ("_id", sagaId));
         }
 
-        public T Get<T>(string property, object value) where T : ISagaEntity
+        public T Get<T>(string property, object value) where T : IContainSagaData
         {
             if (value == null) return default(T);
 
             return _sagas.FindOneAs<T>(Query.EQ(property, BsonTypeMapper.MapToBsonValue(value)));
         }
 
-        public void Complete(ISagaEntity saga)
+        public void Complete(IContainSagaData saga)
         {
             _sagas.Remove(Query.EQ("_id", saga.Id));
             DeleteUniqueProperty(saga);
         }
 
-        private void DeleteUniqueProperty(ISagaEntity saga)
+        private void DeleteUniqueProperty(IContainSagaData saga)
         {
             var uniqueProperty = UniqueAttribute.GetUniqueProperty(saga);
 
@@ -101,7 +101,7 @@ namespace NServiceBus.SagaPersisters.Mongo
             _sagaIds.FindAndRemove(Query.EQ("_id", id), SortBy.Null);
         }
 
-        private KeyValuePair<string, object>? StoreUniqueProperty(ISagaEntity saga)
+        private KeyValuePair<string, object>? StoreUniqueProperty(IContainSagaData saga)
         {
             var uniqueProperty = UniqueAttribute.GetUniqueProperty(saga);
 
@@ -117,14 +117,14 @@ namespace NServiceBus.SagaPersisters.Mongo
             return uniqueProperty.Value;
         }
 
-        private void SetUniqueValueMetadata(ISagaEntity saga, KeyValuePair<string, object> uniqueProperty)
+        private void SetUniqueValueMetadata(IContainSagaData saga, KeyValuePair<string, object> uniqueProperty)
         {
             var result = _sagas.FindAndModify(Query.EQ("_id", saga.Id), SortBy.Null, MongoDB.Driver.Builders.Update.Set(MetadataPropertyName, uniqueProperty.Value.ToString()), true);
             if(result.ModifiedDocument == null)
                 throw new InvalidOperationException();
         }
 
-        private void DeleteUniqueProperty(ISagaEntity saga, KeyValuePair<string, object> uniqueProperty)
+        private void DeleteUniqueProperty(IContainSagaData saga, KeyValuePair<string, object> uniqueProperty)
         {
             var id = SagaUniqueIdentity.FormatId(saga.GetType(), uniqueProperty);
             var result = _sagas.FindAndModify(Query.EQ("_id", saga.Id), SortBy.Null, MongoDB.Driver.Builders.Update.Set(MetadataPropertyName, BsonTypeMapper.MapToBsonValue(null)), true);
